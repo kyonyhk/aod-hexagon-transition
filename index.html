@@ -19,43 +19,45 @@
     </div>
     <img src="intro-background.jpg" class="clipped-image" alt="Extended Hexagon Grid">
     <img src="background.jpg" class="background-img">
-    <div id="dashboard" style="position: fixed; top: 20px; right: 20px; background: white; padding: 10px; z-index: 1000;">
-        <h4>Animation Dashboard</h4>
-        <div class="input-row">
-            <label for="frameWidth">Frame Width:</label>
-            <input type="number" id="frameWidth" value="88">
-        </div>
-        <div class="input-row">
-            <label for="frameHeight">Frame Height:</label>
-            <input type="number" id="frameHeight" value="100">
-        </div>
-        <div class="input-row">
-            <label for="hexagonWidth">Hexagon Width:</label>
-            <input type="number" id="hexagonWidth" value="84">
-        </div>
-        <div class="input-row">
-            <label for="hexagonHeight">Hexagon Height:</label>
-            <input type="number" id="hexagonHeight" value="100">
-        </div>
-        <div class="input-row">
-            <label for="duration">Animation duration for each hexagon:</label>
-            <input type="number" id="duration" step="0.01" value="0.1">
-        </div>
-        <div class="input-row">
-            <label for="staggerAmount">Stagger between layers:</label>
-            <input type="number" id="staggerAmount" step="0.1" value="0.1">
-        </div>
-        <div class="input-row">
-            <label for="scale">Hexagon animation scale:</label>
-            <input type="number" id="scale" step="0.1" value="1.1">
-        </div>
-        <div class="input-row">
-            <label for="ease">Ease:</label>
-            <select id="ease">
-                <option value="power4.in">power4.in</option>
-                <option value="power4.Out" selected>power4.out</option>
-                <option value="power4.inOut">power4.inOut</option>
-            </select>
+    <div id="dashboard" style="position: fixed; top: 20px; right: 20px padding: 16px; z-index: 1000;">
+        <div class="dashboard-container">
+            <h3>Animation Dashboard</h3>
+            <div class="input-row">
+                <label for="frameWidth">Frame Width:</label>
+                <input type="number" id="frameWidth" value="88">
+            </div>
+            <div class="input-row">
+                <label for="frameHeight">Frame Height:</label>
+                <input type="number" id="frameHeight" value="100">
+            </div>
+            <div class="input-row">
+                <label for="hexagonWidth">Hexagon Width:</label>
+                <input type="number" id="hexagonWidth" value="84">
+            </div>
+            <div class="input-row">
+                <label for="hexagonHeight">Hexagon Height:</label>
+                <input type="number" id="hexagonHeight" value="100">
+            </div>
+            <div class="input-row">
+                <label for="duration">Animation duration for each hexagon:</label>
+                <input type="number" id="duration" step="0.01" value="0.1">
+            </div>
+            <div class="input-row">
+                <label for="staggerAmount">Stagger between layers:</label>
+                <input type="number" id="staggerAmount" step="0.1" value="0.1">
+            </div>
+            <div class="input-row">
+                <label for="scale">Hexagon animation scale:</label>
+                <input type="number" id="scale" step="0.1" value="1.1">
+            </div>
+            <div class="input-row">
+                <label for="ease">Ease:</label>
+                <select id="ease">
+                    <option value="power4.in">power4.in</option>
+                    <option value="power4.Out" selected>power4.out</option>
+                    <option value="power4.inOut">power4.inOut</option>
+                </select>
+            </div>
         </div>
         <button id="applySettings">Apply Settings</button>
     </div>

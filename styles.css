@@ -48,13 +48,27 @@ svg {
 }
 
 #dashboard {
+  position: fixed; 
+  top: 20px; 
+  right: 20px; 
+  padding: 16px; 
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.1) !important; 
   backdrop-filter: blur(4px);
   color: white; /* Ensuring text is visible */
+  width: 280px;
+  overflow: hidden; /* This helps in managing the height animation cleanly */
+  transition: height 0.3s ease-in-out; /* Smooth transition for height changes */
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .input-row {
