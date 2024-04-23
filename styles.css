@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.clipped-image {
+  clip-path: url(#hexagon-clip);
+  width: 100vw;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+svg {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: auto; 
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  visibility: visible; 
+}
+
+.svg-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-img {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
