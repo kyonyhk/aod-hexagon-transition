@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         frameHeight: 100,
         hexagonWidth: 84,
         hexagonHeight: 100,
-        duration: 0.05,
-        staggerAmount: 0.5,
+        duration: 0.1,
+        staggerAmount: 0.1,
         scale: 1.1,
         ease: "power4.out"
     };
