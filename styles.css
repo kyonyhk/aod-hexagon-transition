@@ -7,6 +7,8 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+  font-family: "Baloo Thambi 2", system-ui;
+  font-weight: 400;
 }
 
 .clipped-image {
@@ -43,4 +45,49 @@ svg {
   height: 100%;
   left: 0;
   top: 0;
+}
+
+#dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1) !important; 
+  backdrop-filter: blur(4px);
+  color: white; /* Ensuring text is visible */
+}
+
+.input-row {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px rgba(255, 255, 255, 0.5) solid;
+  font-weight: bold;
+  color: white;
+  background-color: transparent;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+input, select {
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px rgba(255, 255, 255, 0.5) solid;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 1.0);
+}
+
+input:hover, select:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

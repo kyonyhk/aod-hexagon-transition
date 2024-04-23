@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;
 
-const hexagonWidth = 86;
+const hexagonWidth = 84;
 const hexagonHeight = 100; 
 const halfWidth = hexagonWidth / 2;
 const quarterHeight = hexagonHeight / 4;
@@ -14,10 +14,34 @@ const staggerAdjustment = frameHeight - (3 * quarterHeight + (frameWidth - hexag
 const rows = Math.ceil((Math.floor(screenHeight / staggerAdjustment)) * 1.2)
 const cols = Math.ceil((Math.floor(screenWidth / frameWidth)) * 1.2)
 
+document.addEventListener('DOMContentLoaded', function() {
+    const initialSettings = {
+        frameWidth: 88,
+        frameHeight: 100,
+        hexagonWidth: 84,
+        hexagonHeight: 100,
+        duration: 0.05,
+        staggerAmount: 0.5,
+        scale: 1.1,
+        ease: "power4.out"
+    };
 
-function addHexagons() {
+    console.log("Initial Settings:", initialSettings);
+    addHexagons(initialSettings);
+    startAnimation(initialSettings);
+    
+    const applySettingsButton = document.getElementById('applySettings')
+    applySettingsButton.addEventListener('click', updateSettings)
+    
+})
+
+function addHexagons(settings) {
+    const { frameWidth, frameHeight, hexagonWidth, hexagonHeight } = settings;
     const clipPath = document.querySelector("#hexagon-clip");
     const svgNS = "http://www.w3.org/2000/svg";
+    clipPath.innerHTML = '';  // Clear existing content
+    
+    
     const layerBoundaries = initializeLayerBoundaries(rows);
     const xOffset = frameWidth / 2; 
     const yOffset =  frameHeight - (3 * quarterHeight + (frameWidth - hexagonHeight)); // Vertical offset per row
@@ -33,7 +57,7 @@ function addHexagons() {
             let layerClass = determineLayerClass(col, row, cols, rows, layerBoundaries);
 
             // Points for the current hexagon
-            let points = generatePointsForHexagon(xPosition, yPosition);
+            let points = generatePointsForHexagon(xPosition, yPosition, hexagonWidth, hexagonHeight);
 
             // Create polygon and append to clipPath
             let polygon = document.createElementNS(svgNS, "polygon");
@@ -90,7 +114,9 @@ function determineLayerClass(col, row, cols, rows, layerBoundaries) {
     return `layer-${layerBoundaries.length + 1}`;
 }
 
-function generatePointsForHexagon(x, y) {
+function generatePointsForHexagon(x, y, hexagonWidth, hexagonHeight) {
+    let halfWidth = hexagonWidth / 2;
+    let quarterHeight = hexagonHeight / 4;
     // Generate points for hexagon based on x and y positions
     // This assumes all hexagons are uniform and aligned properly in rows
     return `
@@ -127,17 +153,20 @@ function generatePointsForHexagon(x, y) {
 //     })
 // }
 
-function startAnimation() {
+function startAnimation(settings) {
+    console.log("Starting animation with settings:", settings);
+    const { duration, staggerAmount, ease, scale } = settings;
+
     const numberOfLayers = initializeLayerBoundaries(rows).length;  // Get the number of layers from your boundaries initialization
     const layers = Array.from({ length: numberOfLayers }, (_, i) => `layer-${i + 1}`);
     const timeline = gsap.timeline({ 
         defaults: { 
-            duration: 0.05, 
-            ease: "power4.out" 
+            duration: duration, 
+            ease: ease,
         },
         // onComplete: scaleUpAllPolygons,
     });
-    const totalDuration = 0.2;
+    // const totalDuration = 0.2;
 
     gsap.set('polygon', {
         scale: 0,
@@ -145,18 +174,18 @@ function startAnimation() {
 
     layers.forEach((layer, index) => {
         const elements = document.querySelectorAll(`#hexagon-clip polygon.${layer}`);
-        const staggerDuration = totalDuration / elements.length; // Duration per element
+        const staggerDuration = staggerAmount / elements.length; // Duration per element
 
         timeline.fromTo(elements, {scale: 0}, {
-            scale: 1.1,
+            scale: scale,
             stagger: {
-                amount: totalDuration - staggerDuration, // Total stagger amount for the entire layer
+                amount: staggerAmount - staggerDuration, // Total stagger amount for the entire layer
                 from: "random"
             },
             transformOrigin: "center center",
-            ease: "power4.out",
+            ease: ease,
             onComplete: () => console.log(`${layer} animation completed`)
-        }, index * totalDuration); // Offset each layer's start by the total duration of the previous layer
+        }, index * staggerAmount); // Offset each layer's start by the total duration of the previous layer
     });
 }
 
@@ -170,8 +199,34 @@ function startAnimation() {
 //     });
 // }
 
-document.addEventListener('DOMContentLoaded', function() {
-    addHexagons()
-    const backgroundImg = document.querySelector('.background-img')
-    startAnimation();
-})
+function updateSettings() {
+    const frameWidth = parseFloat(document.getElementById('frameWidth').value);
+    const frameHeight = parseFloat(document.getElementById('frameHeight').value);
+    const hexagonWidth = parseFloat(document.getElementById('hexagonWidth').value);
+    const hexagonHeight = parseFloat(document.getElementById('hexagonHeight').value);
+    const duration = parseFloat(document.getElementById('duration').value);
+    const staggerAmount = parseFloat(document.getElementById('staggerAmount').value);
+    const scale = parseFloat(document.getElementById('scale').value);
+    const ease = document.getElementById('ease').value;
+
+    // Assuming you have global variables or a way to update these in your actual function:
+    const newSettings = {
+        frameWidth,
+        frameHeight,
+        hexagonWidth,
+        hexagonHeight,
+        duration,
+        staggerAmount,
+        scale,
+        ease
+    };
+
+    console.log("Updating settings:", newSettings);
+
+    // Clear existing hexagons
+    document.querySelector('#hexagon-clip').innerHTML = '';
+
+    // Recreate hexagons and reinitialize animation with new settings
+    addHexagons(newSettings);  // Make sure this function uses settings from `window.myAnimationSettings`
+    startAnimation(newSettings); // Make sure this function also uses settings from `window.myAnimationSettings`
+}
